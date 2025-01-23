@@ -5,6 +5,7 @@ const SwiftFoliosForm = require("express").Router()
 const fs = require("fs");
 const path = require("path");
 const UploadToAwsBucket = require("../../utils/UploadToAwsBucket");
+const {PostSwiftFoliosFormDataController,GetSwiftFoliosFormDataController} = require("./controllers/SwiftFoliosFormController/SwiftFoliosFormController")
 
 const GenerateID = (length) => {
     return Math.floor(Math.random() * Math.pow(10, length)).toString().padStart(length, '0');
@@ -34,3 +35,13 @@ const storage = multer.diskStorage({
 });
 
 const multiple_upload = multer({ storage }).any();
+
+SwiftFoliosForm.post("/form-data/post",multiple_upload,PostSwiftFoliosFormDataController)
+SwiftFoliosForm.get("/form-data/get",GetSwiftFoliosFormDataController)
+
+
+
+
+
+
+module.exports = {SwiftFoliosForm};

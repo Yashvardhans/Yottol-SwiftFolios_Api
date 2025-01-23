@@ -2,14 +2,11 @@ const express = require('express')
 const app = express()
 
 
-// const {SwiftFoliosResearchForm} = require("../api/SwiftFoliosResearchForm")
-
-const swiftFoliosForm = (req, res, next) => {
-    res.send('SwiftFolios form route works!');
-};
+const {SwiftFoliosForm} = require("../api/SwiftFoliosResearchForm")
 
 
-app.use("/swift-folios-form",swiftFoliosForm)
+
+app.use("/swift-folios-research",SwiftFoliosForm)
 
 
 

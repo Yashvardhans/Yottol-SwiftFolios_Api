@@ -6,7 +6,7 @@ const dotenv = require("dotenv");
 const path = require("path");
 
 dotenv.config({
-  path: path.join(__dirname, "../../.env"),
+  path: path.join(__dirname, "../.env"),
 });
 
 const AWS_ACCESS_KEY = process.env.AWS_ACCESS_KEY;
@@ -30,6 +30,7 @@ const s3_client = new S3Client({
 
 async function UploadToAwsBucket(fileName) {
   try {
+    
     const fileContent = fs.readFileSync(path.join(__dirname, '..', 'Uploads', fileName));
 
     const mimeTypes = {
