@@ -61,4 +61,4 @@ async function UploadToAwsBucket(fileName) {
   }
 }
 
-module.exports = UploadToAwsBucket;
+module.exports = {UploadToAwsBucket};

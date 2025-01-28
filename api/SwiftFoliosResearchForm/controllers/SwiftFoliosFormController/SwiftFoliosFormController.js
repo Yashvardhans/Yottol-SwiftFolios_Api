@@ -1,16 +1,19 @@
 const { AddSwiftFoliosFormData } =  require("../../services/AddSwiftFoliosFormData");
 const { GetSwiftFoliosFormData } = require("../../services/GetSwiftFoliosFormData");
-
+const {UploadToAwsBucket} = require("../../../../utils/UploadToAwsBucket");
 
 const PostSwiftFoliosFormDataController = async (req, res) => {
     try {
-        const { id, heading, body, stockData,  videoURL } = req.body;
-        const file = req.files?.file;
-        const relatedStockData = JSON.parse(req.body.relatedStockData);
+        const { id, heading, body, stockData,relatedStockData,  videoUrl } = req.body;
+        const file = req.files?.find(file => file.fieldname === 'file');
+        console.log("req.file       ",req.files);
+        console.log("req.body",req.body);
+        
+        
 
-        const videoFile = req.files?.videoFile;
-        const thumbnailFile = req.files?.thumbnailFile;
-
+        const videoFile = req.files?.find(file => file.fieldname === 'videoFile');
+        const thumbnailFile = req.files?.find(file => file.fieldname === 'thumbnailFile');;
+        console.log(file,videoFile)
         let file_url = null;
         let videoFileUrl = null;
         let thumbnailFileUrl = null;
@@ -38,7 +41,7 @@ const PostSwiftFoliosFormDataController = async (req, res) => {
             stockData,
             file_url,
             thumbnailFileUrl,
-            video_url: videoFileUrl || videoURL || null
+            video_url: videoFileUrl || videoUrl || null
         };
         
 
