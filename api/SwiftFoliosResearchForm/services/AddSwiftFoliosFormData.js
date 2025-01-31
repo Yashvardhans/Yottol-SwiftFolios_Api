@@ -9,6 +9,7 @@ const AddSwiftFoliosFormData = async ({
     file_url,
     video_url,
     thumbnailFileUrl,
+    date
 }) => {
     const query = `
         INSERT INTO swiftresearch (
@@ -19,8 +20,9 @@ const AddSwiftFoliosFormData = async ({
             stock_code,
             file_url,
             video_url,
-            thumbnail_url
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            thumbnail_url,
+            date
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)
     `;
 
     const params = [
@@ -32,6 +34,7 @@ const AddSwiftFoliosFormData = async ({
         file_url,
         video_url,
         thumbnailFileUrl,
+        date
     ];
     console.log("params",params);
     

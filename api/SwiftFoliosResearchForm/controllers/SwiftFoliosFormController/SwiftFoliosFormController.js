@@ -6,6 +6,7 @@ const PostSwiftFoliosFormDataController = async (req, res) => {
     try {
         const { id, heading, body, stockData,relatedStockData,  videoUrl } = req.body;
         const file = req.files?.find(file => file.fieldname === 'file');
+        const date = JSON.parse(req.body.date);
         console.log("req.file       ",req.files);
         console.log("req.body",req.body);
         
@@ -41,19 +42,16 @@ const PostSwiftFoliosFormDataController = async (req, res) => {
             stockData,
             file_url,
             thumbnailFileUrl,
-            video_url: videoFileUrl || videoUrl || null
+            video_url: videoFileUrl || videoUrl || null,
+            date
         };
         
 
         
-        console.log({id,
-            heading,
-            body,
-            relatedStockData,
-            stockData,
-            file_url,
-            thumbnailFileUrl})
+        
             console.log(swiftFoliosData);
+            console.log("date",date);
+            
             
 
         await AddSwiftFoliosFormData(swiftFoliosData);
