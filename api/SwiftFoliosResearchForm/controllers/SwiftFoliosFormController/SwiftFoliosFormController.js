@@ -4,7 +4,7 @@ const {UploadToAwsBucket} = require("../../../../utils/UploadToAwsBucket");
 
 const PostSwiftFoliosFormDataController = async (req, res) => {
     try {
-        const { id, heading, body, stockData,relatedStockData,  videoUrl } = req.body;
+        const { id, heading, body, stockData,relatedStockData,  videoUrl ,postId} = req.body;
         const file = req.files?.find(file => file.fieldname === 'file');
         const date = JSON.parse(req.body.date);
         console.log("req.file       ",req.files);
@@ -42,6 +42,7 @@ const PostSwiftFoliosFormDataController = async (req, res) => {
             stockData,
             file_url,
             thumbnailFileUrl,
+            post_id : postId,
             video_url: videoFileUrl || videoUrl || null,
             date
         };
