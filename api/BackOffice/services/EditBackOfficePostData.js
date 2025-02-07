@@ -2,9 +2,9 @@ const { ExecuteQuery } = require("../../../utils/ExecuteQuery");
 
 const EditBackOfficePostData = async ({post_id,
     heading,
-    body: description,
+    body,
     file_url,
-    thumbnailFileUrl: thumbnail_url,
+    thumbnail_url,
     video_url,
     date,}) => {
 
@@ -23,7 +23,7 @@ const EditBackOfficePostData = async ({post_id,
 
     const params = [
         heading,
-        description,
+        body,
         file_url,
         thumbnail_url,
         video_url,

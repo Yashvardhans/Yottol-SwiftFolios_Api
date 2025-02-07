@@ -94,7 +94,7 @@ const EditBackOfficePostDataController = async (req, res) => {
     if (thumbnailFile) {
       thumbnailFileUrl = await UploadToAwsBucket(thumbnailFile.filename);
     }
-
+    console.log("thmb",thumbnailFileUrl)
     const backOfficePostEditData = {
       heading,
       body,
