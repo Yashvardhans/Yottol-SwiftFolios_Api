@@ -1,6 +1,6 @@
 const { ExecuteQuery } = require("../../../utils/ExecuteQuery");
 
-const EditBackOfficePostData = async ({post_id,
+const ResearchEditBackOfficePostData = async ({post_id,
     heading,
     body,
     file_url,
@@ -42,4 +42,4 @@ const EditBackOfficePostData = async ({post_id,
     }
 };
 
-module.exports = { EditBackOfficePostData };
+module.exports = { ResearchEditBackOfficePostData };

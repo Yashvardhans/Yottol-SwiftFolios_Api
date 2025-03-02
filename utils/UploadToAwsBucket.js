@@ -1,6 +1,8 @@
 const fs = require("fs");
+const f = require("../");
 const { S3Client } = require("@aws-sdk/client-s3");
 const { PutObjectCommand } = require("@aws-sdk/client-s3");
+
 
 const dotenv = require("dotenv");
 const path = require("path");
@@ -31,7 +33,7 @@ const s3_client = new S3Client({
 async function UploadToAwsBucket(fileName) {
   try {
     
-    const fileContent = fs.readFileSync(path.join(__dirname, '..', 'Uploads', fileName));
+    const fileContent = fs.readFileSync(path.join(__dirname, '../', 'Uploads', fileName));
 
     const mimeTypes = {
       '.pdf': 'application/pdf',

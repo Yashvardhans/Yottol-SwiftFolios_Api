@@ -1,6 +1,6 @@
 const { ExecuteQuery } = require("../../../utils/ExecuteQuery");
 
-const AddBackOfficePostData = async ({
+const ResearchAddBackOfficePostData = async ({
     id,
     heading,
     body,
@@ -52,4 +52,4 @@ const AddBackOfficePostData = async ({
     }
 };
 
-module.exports = { AddBackOfficePostData };
+module.exports = { ResearchAddBackOfficePostData };

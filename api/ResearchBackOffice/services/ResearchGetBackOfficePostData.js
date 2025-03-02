@@ -1,7 +1,7 @@
 const { ExecuteQuery } = require("../../../utils/ExecuteQuery");
 
 
-const GetBackOfficePostData = async () =>{
+const ResearchGetBackOfficePostData = async () =>{
     try {
         const query = `
             SELECT 
@@ -61,4 +61,4 @@ const GetBackOfficePostData = async () =>{
 
 }
 
-module.exports = {GetBackOfficePostData}
+module.exports = {ResearchGetBackOfficePostData}

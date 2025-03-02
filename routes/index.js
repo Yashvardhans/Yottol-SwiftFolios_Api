@@ -3,12 +3,12 @@ const app = express()
 
 
 const {SwiftFoliosForm} = require("../api/SwiftFoliosResearchForm")
-const {BackOffice} = require("../api/BackOffice")
+const {ResearchBackOffice} = require("../api/ResearchBackOffice")
 
 
 
 app.use("/swift-folios-research",SwiftFoliosForm)
-app.use("/back-office",BackOffice)
+app.use("/back-office",ResearchBackOffice)
 
 
 

@@ -1,11 +1,11 @@
-const { AddBackOfficePostData } = require("../services/AddBackOfficePostData");
-const { GetBackOfficePostData } = require("../services/GetBackOfficePostData");
-const {EditBackOfficePostStockData} = require("../services/EditBackOfficePostStockData")
-const {EditBackOfficePostData} = require("../services/EditBackOfficePostData")
+const { ResearchAddBackOfficePostData } = require("../services/ResearchAddBackOfficePostData");
+const { ResearchGetBackOfficePostData } = require("../services/ResearchGetBackOfficePostData");
+const {ResearchEditBackOfficePostStockData} = require("../services/ResearchEditBackOfficePostStockData")
+const {ResearchEditBackOfficePostData} = require("../services/ResearchEditBackOfficePostData")
 const { UploadToAwsBucket } = require("../../../utils/UploadToAwsBucket");
 
 
-const AddBackOfficePostDataController = async (req, res) => {
+const ResearchAddBackOfficePostDataController = async (req, res) => {
   try {
     const { id, heading, body, videoUrl, postId } = req.body;
     const file = req.files?.find((file) => file.fieldname === "file");
@@ -45,7 +45,7 @@ const AddBackOfficePostDataController = async (req, res) => {
       date,
     };
 
-    await AddBackOfficePostData(backOfficePostData);
+    await ResearchAddBackOfficePostData(backOfficePostData);
 
     res.status(200).json({ message: "Data added successfully" });
   } catch (error) {
@@ -56,15 +56,15 @@ const AddBackOfficePostDataController = async (req, res) => {
   }
 };
 
-const GetBackOfficePostDataController = async (req, res) => {
+const ResearchGetBackOfficePostDataController = async (req, res) => {
   try {
-    const data = await GetBackOfficePostData();
+    const data = await ResearchGetBackOfficePostData();
     res.status(200).json({ data: data });
   } catch (error) {
     console.log("Error", error);
   }
 };
-const EditBackOfficePostDataController = async (req, res) => {
+const ResearchEditBackOfficePostDataController = async (req, res) => {
   try {
     const { postId } = req.params;
     const { id, heading, body, videoUrl } = req.body;
@@ -105,7 +105,7 @@ const EditBackOfficePostDataController = async (req, res) => {
       date,
     };
 
-    await EditBackOfficePostData(backOfficePostEditData);
+    await ResearchEditBackOfficePostData(backOfficePostEditData);
 
     res.status(200).json({ message: "Data updated successfully" });
   } catch (error) {
@@ -116,13 +116,13 @@ const EditBackOfficePostDataController = async (req, res) => {
   }
 };
 
-const EditBackOfficePostStockDataController = async (req, res) => {
+const ResearchEditBackOfficePostStockDataController = async (req, res) => {
     try {
       const { postId } = req.params;
       const { stockData, relatedStockData } = req.body;
       console.log("body",req.body);
       
-      const result = await EditBackOfficePostStockData({ postId, stockCode:stockData,  relatedStockCode:relatedStockData });
+      const result = await ResearchEditBackOfficePostStockData({ postId, stockCode:stockData,  relatedStockCode:relatedStockData });
       res.status(200).json({ message: "Stock updated successfully", result });
     } catch (error) {
       console.error("Error updating stock:", error);
@@ -131,8 +131,8 @@ const EditBackOfficePostStockDataController = async (req, res) => {
   };
   
 module.exports = {
-  AddBackOfficePostDataController,
-  GetBackOfficePostDataController,
-  EditBackOfficePostDataController,
-  EditBackOfficePostStockDataController
+  ResearchAddBackOfficePostDataController,
+  ResearchGetBackOfficePostDataController,
+  ResearchEditBackOfficePostDataController,
+  ResearchEditBackOfficePostStockDataController
 };

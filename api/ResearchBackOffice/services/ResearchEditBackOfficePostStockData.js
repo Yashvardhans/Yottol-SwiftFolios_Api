@@ -1,6 +1,6 @@
 const { ExecuteQuery } = require("../../../utils/ExecuteQuery");
 
-const EditBackOfficePostStockData = async ({ postId, stockCode, relatedStockCode }) => {
+const ResearchEditBackOfficePostStockData = async ({ postId, stockCode, relatedStockCode }) => {
   const query = `
     UPDATE swiftresearch
     SET 
@@ -24,4 +24,4 @@ const EditBackOfficePostStockData = async ({ postId, stockCode, relatedStockCode
   }
 };
 
-module.exports = { EditBackOfficePostStockData };
+module.exports = { ResearchEditBackOfficePostStockData };

@@ -1,16 +1,16 @@
 const multer = require("multer");
 
-const BackOffice = require("express").Router();
+const ResearchBackOffice = require("express").Router();
 
 const fs = require("fs");
 const path = require("path");
 
 const {
-  AddBackOfficePostDataController,
-  GetBackOfficePostDataController,
-  EditBackOfficePostDataController,
-  EditBackOfficePostStockDataController,
-} = require("../BackOffice/controllers/BackOfficeMainContoller");
+  ResearchAddBackOfficePostDataController,
+  ResearchGetBackOfficePostDataController,
+  ResearchEditBackOfficePostDataController,
+  ResearchEditBackOfficePostStockDataController,
+} = require("../ResearchBackOffice/controllers/ResearchBackOfficeMainController");
 
 const GenerateID = (length) => {
   return Math.floor(Math.random() * Math.pow(10, length))
@@ -43,13 +43,13 @@ const storage = multer.diskStorage({
 
 const multiple_upload = multer({ storage }).any();
 
-BackOffice.post("/post/add", multiple_upload, AddBackOfficePostDataController);
-BackOffice.get("/post/get", GetBackOfficePostDataController);
-BackOffice.put(
+ResearchBackOffice.post("/post/add", multiple_upload, ResearchAddBackOfficePostDataController);
+ResearchBackOffice.get("/post/get", ResearchGetBackOfficePostDataController);
+ResearchBackOffice.put(
   "/post/:postId/update",
   multiple_upload,
-  EditBackOfficePostDataController
+  ResearchEditBackOfficePostDataController
 );
-BackOffice.put("/post/stock/:postId/edit",multiple_upload,EditBackOfficePostStockDataController);
+ResearchBackOffice.put("/post/stock/:postId/edit",multiple_upload,ResearchEditBackOfficePostStockDataController);
 
-module.exports = { BackOffice };
+module.exports = { ResearchBackOffice };
