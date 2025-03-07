@@ -20,19 +20,19 @@ const PostSwiftFoliosFormDataController = async (req, res) => {
         let thumbnailFileUrl = null;
         
         if (file) {
-
             file_url = await UploadToAwsBucket(file.filename);
             console.log(file_url);
-            
-        }
-        if (videoFile) {
+            file_url += `_${file.originalname}`;
+          }
+          if (videoFile) {
             videoFileUrl = await UploadToAwsBucket(videoFile.filename);
-        }
-
-        if (thumbnailFile) {
+            videoFileUrl += `_${videoFile.originalname}`
+          }
+      
+          if (thumbnailFile) {
             thumbnailFileUrl = await UploadToAwsBucket(thumbnailFile.filename);
-        }
-
+            thumbnailFileUrl += `_${thumbnailFile.originalname}`
+          }
         
         const swiftFoliosData = {
             id,

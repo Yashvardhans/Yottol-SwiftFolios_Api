@@ -25,13 +25,16 @@ const ResearchAddBackOfficePostDataController = async (req, res) => {
     if (file) {
       file_url = await UploadToAwsBucket(file.filename);
       console.log(file_url);
+      file_url += `_${file.originalname}`;
     }
     if (videoFile) {
       videoFileUrl = await UploadToAwsBucket(videoFile.filename);
+      videoFileUrl += `_${videoFile.originalname}`
     }
 
     if (thumbnailFile) {
       thumbnailFileUrl = await UploadToAwsBucket(thumbnailFile.filename);
+      thumbnailFileUrl += `_${thumbnailFile.originalname}`
     }
 
     const backOfficePostData = {
@@ -85,14 +88,17 @@ const ResearchEditBackOfficePostDataController = async (req, res) => {
 
     if (file) {
       file_url = await UploadToAwsBucket(file.filename);
+      file_url += `_${file.originalname}`;
       console.log(file_url);
     }
     if (videoFile) {
       videoFileUrl = await UploadToAwsBucket(videoFile.filename);
+      videoFileUrl += `_${videoFile.originalname}`;
     }
 
     if (thumbnailFile) {
       thumbnailFileUrl = await UploadToAwsBucket(thumbnailFile.filename);
+      thumbnailFileUrl += `_${thumbnailFile.originalname}`
     }
     console.log("thmb",thumbnailFileUrl)
     const backOfficePostEditData = {
