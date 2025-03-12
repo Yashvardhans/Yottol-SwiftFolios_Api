@@ -2,6 +2,7 @@ const { ResearchAddBackOfficePostData } = require("../services/ResearchAddBackOf
 const { ResearchGetBackOfficePostData } = require("../services/ResearchGetBackOfficePostData");
 const {ResearchEditBackOfficePostStockData} = require("../services/ResearchEditBackOfficePostStockData")
 const {ResearchEditBackOfficePostData} = require("../services/ResearchEditBackOfficePostData")
+const {ResearchGetBackOfficePostById} = require("../services/ResearchGetBackOfficePostById")
 const { UploadToAwsBucket } = require("../../../utils/UploadToAwsBucket");
 
 
@@ -17,7 +18,7 @@ const ResearchAddBackOfficePostDataController = async (req, res) => {
     const thumbnailFile = req.files?.find(
       (file) => file.fieldname === "thumbnailFile"
     );
-    console.log(file, videoFile);
+    console.log("all_files",file, videoFile,thumbnailFile);
     let file_url = null;
     let videoFileUrl = null;
     let thumbnailFileUrl = null;
@@ -73,52 +74,45 @@ const ResearchEditBackOfficePostDataController = async (req, res) => {
     const { id, heading, body, videoUrl } = req.body;
     const file = req.files?.find((file) => file.fieldname === "file");
     const date = JSON.parse(req.body.date);
-    console.log("edit files       ", req.files);
-    console.log("edit data", req.body);
-    console.log("postId", postId);
 
-    const videoFile = req.files?.find((file) => file.fieldname === "videoFile");
-    const thumbnailFile = req.files?.find(
-      (file) => file.fieldname === "thumbnailFile"
-    );
+    const existingPost = await ResearchGetBackOfficePostById(postId);
 
-    let file_url = null;
-    let videoFileUrl = null;
-    let thumbnailFileUrl = null;
+    let file_url = existingPost.file_url;
+    let videoFileUrl = existingPost.video_url;
+    let thumbnailFileUrl = existingPost.thumbnail_url;
 
     if (file) {
       file_url = await UploadToAwsBucket(file.filename);
       file_url += `_${file.originalname}`;
-      console.log(file_url);
     }
+
+    const videoFile = req.files?.find((file) => file.fieldname === "videoFile");
     if (videoFile) {
       videoFileUrl = await UploadToAwsBucket(videoFile.filename);
       videoFileUrl += `_${videoFile.originalname}`;
     }
 
+    const thumbnailFile = req.files?.find((file) => file.fieldname === "thumbnailFile");
     if (thumbnailFile) {
       thumbnailFileUrl = await UploadToAwsBucket(thumbnailFile.filename);
-      thumbnailFileUrl += `_${thumbnailFile.originalname}`
+      thumbnailFileUrl += `_${thumbnailFile.originalname}`;
     }
-    console.log("thmb",thumbnailFileUrl)
+
     const backOfficePostEditData = {
-      heading,
-      body,
-      file_url,
+      heading: heading,
+      body: body,
+      file_url:file_url || existingPost.file_url,
       thumbnail_url: thumbnailFileUrl,
       post_id: postId,
-      video_url: videoFileUrl || videoUrl || null,
-      date,
+      video_url: videoFileUrl || videoUrl || existingPost.video_url,
+      date: date,
     };
 
     await ResearchEditBackOfficePostData(backOfficePostEditData);
-
     res.status(200).json({ message: "Data updated successfully" });
   } catch (error) {
     console.error("Error updating post:", error);
-    res
-      .status(500)
-      .json({ message: "Failed to update post", error: error.message });
+    res.status(500).json({ message: "Failed to update post", error: error.message });
   }
 };
 
